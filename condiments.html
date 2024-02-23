@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Start Your Order Page</title>
+    <title>Condiments Page</title>
     <style>
         body {
             background-color: beige;
@@ -102,19 +102,56 @@
         <h1 style="margin-top: 20px;">Add the condiments</h1>
     </div>
     <div class="button-container" style="margin-top: 300px;">
-        <a href="condiments.html" style="margin-right: 20px;"><button>Milk</button></a>
-        <a href="condiments.html"><button>Mocha</button></a>
+        <button style="margin-right: 20px;" onclick="addTheCondiment(this.textContent)">Milk</button></a>
+        <button onclick="addTheCondiment(this.textContent)">Mocha</button>
     </div>
     <div class="button-container" style="margin-top: 20px;">
-        <a href="condiments.html" style="margin-right: 20px;"><button>Soy</button></a>
-        <a href="condiments.html"><button>Whip</button></a>
+        <button style="margin-right: 20px;" onclick="addTheCondiment(this.textContent)">Soy</button>
+        <button onclick="addTheCondiment(this.textContent)">Whip</button>
     </div>
     <div class="cart">
         <div class="cart-content" style="font-size: 30px; color: orange;">My Order</div>
         <div class="cart-buttons" style="margin-top: 30px;">
-            <a href="beverage.html"><button>Selected Beverage</button></a>
+            <a href="beverage.html"><button id="selectedBeverageBtn">Selected Beverage</button></a>
+            <button id="condiment1Btn" style="margin-top:10px;">condiment 1</button>
+            <button id="condiment2Btn" style="margin-top:10px;">condiment 2</button>
+            <button id="condiment3Btn" style="margin-top:10px;">condiment 3</button>
+            <button id="condiment4Btn" style="margin-top:10px;">condiment 4</button>
+            <a href="receipt.html"><button style="margin-top: 220px;">Confirm Order</button></a>
         </div>
     </div>
     
+    <script>
+        let count = 0;
+        // Get the selected beverage from the query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const beverage = urlParams.get('beverage');
+
+        // Update the button text with the selected beverage
+        if (beverage) {
+            const selectedBeverageBtn = document.getElementById('selectedBeverageBtn');
+            selectedBeverageBtn.innerText = beverage;
+        }
+
+        async function addTheCondiment(condiment){
+            count = count + 1;
+            if(count == 1){
+                const selectedCondimentBtn = document.getElementById('condiment1Btn');
+                condiment1Btn.innerText = condiment;
+            }else if(count == 2){
+                const selectedCondimentBtn = document.getElementById('condiment2Btn');
+                condiment2Btn.innerText = condiment;
+            }else if(count == 3){
+                const selectedCondimentBtn = document.getElementById('condiment3Btn');
+                condiment3Btn.innerText = condiment;
+            }else if(count == 4){
+                const selectedCondimentBtn = document.getElementById('condiment1Btn');
+                condiment4Btn.innerText = condiment;
+            }
+
+            
+        }
+
+    </script>
 </body>
 </html>
