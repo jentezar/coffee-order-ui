@@ -10,6 +10,20 @@
             margin: 0;
             padding: 0;
         }
+        .button-container {
+            text-align: center;
+            float: center;
+        }
+        .button-container button {
+            background-color: #D2B48C; /* Light brown color */
+            color: black;
+            height: 150px;
+            width: 200px;
+            cursor: pointer;
+            font-size: 30px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
         .coffee-order-system {
             color: #D2691E;
             position: absolute;
@@ -28,12 +42,48 @@
             top: 10px;
             right: 10px;
             text-decoration: none;
+            
         }
         .order-status a {
             text-decoration: none;
             font-weight: bold;
             color: black;
         }
+        .order-label {
+            text-align: center;
+            position: absolute; /* Set position to absolute */
+            top: 150px; /* Adjust top position */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Center horizontally */
+        }
+        .cart{
+            width: 200px;
+            height: 500px;
+            border: 5px solid black;
+            padding: 10px;
+            margin: 10px;
+            top: 200px;
+            right: 10px;
+            position: absolute;
+        }
+        .cart-content {
+            text-align: center;
+            font-weight: bold;
+        }
+        .cart-buttons {
+            text-align: center;    
+        }
+        .cart-buttons button {
+            background-color: #E5C100; /* Light brown color */
+            color: black;
+            height: 30px;
+            width: 200px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -48,7 +98,23 @@
             <h1 style="margin-top: 20px;">Order Status</h1>
         </a>
     </div>
-    
+   <div class ="order-label">
+        <h1 style="margin-top: 20px;">Add the condiments</h1>
+    </div>
+    <div class="button-container" style="margin-top: 300px;">
+        <a href="condiments.html" style="margin-right: 20px;"><button>Milk</button></a>
+        <a href="condiments.html"><button>Mocha</button></a>
+    </div>
+    <div class="button-container" style="margin-top: 20px;">
+        <a href="condiments.html" style="margin-right: 20px;"><button>Soy</button></a>
+        <a href="condiments.html"><button>Whip</button></a>
+    </div>
+    <div class="cart">
+        <div class="cart-content" style="font-size: 30px; color: orange;">My Order</div>
+        <div class="cart-buttons" style="margin-top: 30px;">
+            <a href="beverage.html"><button>Selected Beverage</button></a>
+        </div>
+    </div>
     
 </body>
 </html>
