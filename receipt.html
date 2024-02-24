@@ -36,7 +36,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="orderIdGenerator()">
     <div class = "coffee-order-system">
         <a href="start.html">
             <h1 style="margin-top: 20px;">Coffee Order</h1>
@@ -48,7 +48,27 @@
             <h1 style="margin-top: 20px;">Order Status</h1>
         </a>
     </div>
-    
+    <div>
+        <h1 style="text-align: center; margin-top: 250px; font-weight: bold;">Order Placed:</h1>
+        <h2 id="order-id" style="text-align: center; margin-top: 20px; font-weight: bold; font-size: 30px;">Order id: </h2>
+        <h3 id="order-message" style="text-align: center; margin-top: 20px; font-weight: bold; font-size: 30px;">this is a test order</h3>
+
+    </div>
+    <script>
+        let orderId = localStorage.getItem('orderId');
+
+        async function orderIdGenerator(){
+            let orderIdElem = document.getElementById('order-id');
+            if (!orderId){
+                orderId = 1;
+            }
+            orderIdElem.textContent = "Order id: " + orderId;
+            localStorage.setItem('orderId', orderId)
+            orderId++;
+            localStorage.setItem('orderId', orderId);
+        }
+        
+    </script>
     
 </body>
 </html>
