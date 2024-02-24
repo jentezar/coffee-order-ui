@@ -67,6 +67,50 @@
             orderId++;
             localStorage.setItem('orderId', orderId);
         }
+        function displayOrderMessage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const beverage = urlParams.get('beverage');
+            const condiment1 = urlParams.get('condiment1');
+            const condiment2 = urlParams.get('condiment2');
+            const condiment3 = urlParams.get('condiment3');
+            const condiment4 = urlParams.get('condiment4');
+            const condimentArray = [condiment1, condiment2, condiment3, condiment4]
+            //creating order message
+            let orderMessage;
+            if (beverage) {
+                orderMessage += beverage;
+            }
+            //individually gather count of numbers
+            let milkCount = 0;
+            let soyCount = 0;
+            let whipCount = 0;
+            let mochaCount = 0;
+            for (let i = 0; i < condimentArray.length; i++) {
+                switch (condimentArray[i]) {
+                    case 'Milk':
+                        milkCount++;
+                        break;
+                    case 'Soy':
+                        soyCount++;
+                        break;
+                    case 'Whip':
+                        whipCount++;
+                        break;
+                    case 'Mocha':
+                        mochaCount++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+
+
+
+
+            const orderMessageElem = document.getElementById('order-message');
+            orderMessageElem.textContent = orderMessage;
+        }
         
     </script>
     
