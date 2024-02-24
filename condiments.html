@@ -133,9 +133,26 @@
             // Get the selected beverage from the button
             const selectedBeverage = document.getElementById('selectedBeverageBtn').innerText;
 
-            // Construct the URL for receipt.html with query parameters for selected beverage and condiments
+             // Construct the URL for receipt.html with query parameters for selected beverage
+            let receiptLinkHref = `receipt.html?beverage=${selectedBeverage}`;
+
+            // Add condiments to the URL if they are selected
+            if (condiment1 !== "condiment 1") {
+                receiptLinkHref += `&condiment1=${condiment1}`;
+            }
+            if (condiment2 !== "condiment 2") {
+                receiptLinkHref += `&condiment2=${condiment2}`;
+            }
+            if (condiment3 !== "condiment 3") {
+                receiptLinkHref += `&condiment3=${condiment3}`;
+            }
+            if (condiment4 !== "condiment 4") {
+                receiptLinkHref += `&condiment4=${condiment4}`;
+            }
+
+            // Set the href attribute of the receipt link
             const receiptLink = document.getElementById('receiptLink');
-            receiptLink.href = `receipt.html?beverage=${selectedBeverage}&condiment1=${condiment1}&condiment2=${condiment2}&condiment3=${condiment3}&condiment4=${condiment4}`;
+            receiptLink.href = receiptLinkHref
 }
             let count = 0;
             // Get the selected beverage from the query string

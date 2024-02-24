@@ -36,7 +36,7 @@
         }
     </style>
 </head>
-<body onload="orderIdGenerator(); displayOrderMessage()">
+<body onload="orderIdGenerator(); displayOrderMessage();">
     <div class = "coffee-order-system">
         <a href="start.html">
             <h1 style="margin-top: 20px;">Coffee Order</h1>
@@ -68,6 +68,69 @@
             orderId++;
             localStorage.setItem('orderId', orderId);
         }
+        async function calculateTotalPrice(beverage, condiments) {
+            let milkCount = 0;
+            let soyCount = 0;
+            let whipCount = 0;
+            let mochaCount = 0;
+            let totalPrice = 0;
+            if(beverage === "Dark Roast"){
+                totalPrice += 1.78;
+            }else if(beverage === "House Blend"){
+                totalPrice += 1.65;
+            }else if(beverage === "Espresso"){
+                totalPrice += 1.34
+            }else if(beverage === "Decaf"){
+                totalPrice += 1.28;
+            }
+
+            for (let i = 0; i < condiments.length; i++) {
+                switch (condiments[i]) {
+                    case 'Milk':
+                        milkCount++;
+                        break;
+                    case 'Soy':
+                        soyCount++;
+                        break;
+                    case 'Whip':
+                        whipCount++;
+                        break;
+                    case 'Mocha':
+                        mochaCount++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            //count array to iterate over
+            const condimentCounts = {
+                'Milk': milkCount,
+                'Soy': soyCount,
+                'Whip': whipCount,
+                'Mocha': mochaCount
+            };
+            if(milkCount != 0){
+                totalPrice += milkCount * .20;
+            }
+            if(soyCount != 0){
+                totalPrice += soyCount * .27;
+            }
+            if(whipCount != 0){
+                totalPrice += whipCount * .25;
+            }
+            if(mochaCount != 0){
+                totalPrice += mochaCount * .40;
+            }
+            
+
+            // Format total price to two decimal places
+            totalPrice = totalPrice.toFixed(2);
+
+            // Set the total price in the priceMessageElem
+            const priceMessageElem = document.getElementById('price-message');
+            priceMessageElem.textContent = `Total: $${totalPrice}`;
+        }
+
         function displayOrderMessage() {
             const urlParams = new URLSearchParams(window.location.search);
             const beverage = urlParams.get('beverage');
@@ -81,6 +144,8 @@
             if (beverage) {
                 orderMessage += beverage;
             }
+            
+
             //individually gather count of numbers
             let milkCount = 0;
             let soyCount = 0;
@@ -112,6 +177,7 @@
                 'Whip': whipCount,
                 'Mocha': mochaCount
             };
+
             //4 of same condiment
             for (const condiment in condimentCounts) {
                 if (condimentCounts[condiment] === 4) {
@@ -153,6 +219,7 @@
             // Variable to store the number of condiments found
             let condimentCount = 0;
             for (const condiment in condimentCounts) {
+                
                 // If the count of the condiment is 1
                 if (condimentCounts[condiment] === 1) {
                  // If it's the first condiment found, start the message with "with"
@@ -165,6 +232,10 @@
                     condimentCount++;
                 }
             }
+            if(milkCount === 0 && soyCount === 0 && whipCount === 0 && mochaCount === 0){
+                orderMessage += beverage;
+            }
+            
             
 
 
@@ -174,6 +245,7 @@
 
             const orderMessageElem = document.getElementById('order-message');
             orderMessageElem.textContent = orderMessage;
+            calculateTotalPrice(beverage, condimentArray);
         }
         
     </script>
