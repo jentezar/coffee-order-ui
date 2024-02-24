@@ -144,6 +144,17 @@
             if (beverage) {
                 orderMessage += beverage;
             }
+            if (!condiment1) {
+                // If condiment1 is null or empty, assume no condiments are selected and retrieve the beverage from local storage
+                const beverage = localStorage.getItem('selectedBeverage');
+                if (beverage) {
+                    const orderMessageElem = document.getElementById('order-message');
+                    orderMessageElem.textContent = beverage;
+                    // Calculate total price based on beverage only
+                    calculateTotalPrice(beverage, []);
+                    return;
+                }
+            }
             
 
             //individually gather count of numbers

@@ -132,6 +132,7 @@
 
             // Get the selected beverage from the button
             const selectedBeverage = document.getElementById('selectedBeverageBtn').innerText;
+            localStorage.setItem('selectedBeverage', selectedBeverage);
 
              // Construct the URL for receipt.html with query parameters for selected beverage
             let receiptLinkHref = `receipt.html?beverage=${selectedBeverage}`;
