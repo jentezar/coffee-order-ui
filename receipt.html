@@ -36,7 +36,7 @@
         }
     </style>
 </head>
-<body onload="orderIdGenerator()">
+<body onload="orderIdGenerator(); displayOrderMessage()">
     <div class = "coffee-order-system">
         <a href="start.html">
             <h1 style="margin-top: 20px;">Coffee Order</h1>
@@ -51,7 +51,8 @@
     <div>
         <h1 style="text-align: center; margin-top: 250px; font-weight: bold;">Order Placed:</h1>
         <h2 id="order-id" style="text-align: center; margin-top: 20px; font-weight: bold; font-size: 30px;">Order id: </h2>
-        <h3 id="order-message" style="text-align: center; margin-top: 20px; font-weight: bold; font-size: 30px;">this is a test order</h3>
+        <h3 id="order-message" style="text-align: center; margin-top: 20px; font-weight: bold; font-size: 30px;"></h3>
+        <h4 id="price-message" style="text-align: center; margin-top: 20px; font-weight: bold; font-size: 30px;">Total: </h4>
 
     </div>
     <script>
@@ -76,7 +77,7 @@
             const condiment4 = urlParams.get('condiment4');
             const condimentArray = [condiment1, condiment2, condiment3, condiment4]
             //creating order message
-            let orderMessage;
+            let orderMessage = "";
             if (beverage) {
                 orderMessage += beverage;
             }
@@ -85,6 +86,7 @@
             let soyCount = 0;
             let whipCount = 0;
             let mochaCount = 0;
+            //looping through array to get count
             for (let i = 0; i < condimentArray.length; i++) {
                 switch (condimentArray[i]) {
                     case 'Milk':
@@ -103,7 +105,69 @@
                         break;
                 }
             }
+            //count array to iterate over
+            const condimentCounts = {
+                'Milk': milkCount,
+                'Soy': soyCount,
+                'Whip': whipCount,
+                'Mocha': mochaCount
+            };
+            //4 of same condiment
+            for (const condiment in condimentCounts) {
+                if (condimentCounts[condiment] === 4) {
+                    orderMessage += ` and quad ${condiment.toLowerCase()}!`;
+                }
+            }
+            //3 of condiment and potentially other condiment
+            for(const condiment in condimentCounts){
+                if(condimentCounts[condiment] === 3){
+                    //check if there is another one
+                    for(const condiment in condimentCounts){
+                        if (condimentCounts[condiment] === 1){
+                            orderMessage += ` with ${condiment.toLowerCase()}`;
+                        }
+                    }
+                    orderMessage += ` and triple ${condiment.toLowerCase()}!`;
+                    
+                }
+            }
+            //2 of condiment and potentially 1 or 2 other condiments
+            for (const condiment in condimentCounts) {
+                if (condimentCounts[condiment] === 2) {
+                    let otherCondiment = '';
+                    let otherCondimentCount = 0;
+                    for (const other in condimentCounts) {
+                        if (other !== condiment && condimentCounts[other] === 1) {
+                            otherCondiment = other;
+                            otherCondimentCount++;
+                        }
+                    }
+                    if (otherCondiment && otherCondimentCount === 1) {
+                        orderMessage += ` with ${otherCondiment.toLowerCase()} and double ${condiment.toLowerCase()}!`;
+                    } else {
+                        orderMessage += ` and double ${condiment.toLowerCase()}!`;
+                    }
+                }
+            }
+            //1 of a condiment
+            // Variable to store the number of condiments found
+            let condimentCount = 0;
+            for (const condiment in condimentCounts) {
+                // If the count of the condiment is 1
+                if (condimentCounts[condiment] === 1) {
+                 // If it's the first condiment found, start the message with "with"
+                 if (condimentCount === 0) {
+                        orderMessage += ` with ${condiment.toLowerCase()}`;
+                    } else {
+                        // use and if its not first
+                        orderMessage += ` and ${condiment.toLowerCase()}`;
+                    }
+                    condimentCount++;
+                }
+            }
             
+
+
 
 
 
