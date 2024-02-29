@@ -131,7 +131,36 @@
             priceMessageElem.textContent = `Total: $${totalPrice}`;
         }
 
-        function displayOrderMessage() {
+        async function sendOrderToBackend(beverage, condiments, id) {
+            const orderData = {
+                beverage: beverage,
+                condiments: condiments,
+                id: id
+            };
+
+            try {
+                const response = await fetch('https://coffee-order-latest.onrender.com/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+                
+                if (response.ok) {
+                    const receipt = await response.json();
+                    // Process receipt if needed
+                } else {
+                    // Handle error response
+                    console.error('Failed to send order to backend:', response.statusText);
+                }
+            } catch (error) {
+                // Handle network error
+                console.error('Failed to send order to backend:', error.message);
+            }
+        }
+
+        async function displayOrderMessage() {
             const urlParams = new URLSearchParams(window.location.search);
             const beverage = urlParams.get('beverage');
             const condiment1 = urlParams.get('condiment1');
@@ -246,17 +275,12 @@
             if(milkCount === 0 && soyCount === 0 && whipCount === 0 && mochaCount === 0){
                 orderMessage += beverage;
             }
-            
-            
-
-
-
-
-
 
             const orderMessageElem = document.getElementById('order-message');
             orderMessageElem.textContent = orderMessage;
             calculateTotalPrice(beverage, condimentArray);
+            sendOrderToBackend(beverage, condimentArray, orderId);
+
         }
         
     </script>
