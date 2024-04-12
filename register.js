@@ -1,5 +1,5 @@
 
-let host = "http://localhost:8080"
+let host = "https://coffee-order-latest.onrender.com"
 async function signup() {
     let email = document.getElementById("email").value;
     let username = document.getElementById("username").value;
